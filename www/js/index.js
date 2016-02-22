@@ -45,6 +45,8 @@ var app = {
             console.log(err.message);
             navigator.notification.alert(err.message);
         }
+
+        navigator.notification.alert('yes');
         
         push.on('registration', function(data) {
             console.log("registration event");
