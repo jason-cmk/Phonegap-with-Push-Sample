@@ -65,6 +65,7 @@
   <access origin="*"/>
   <plugin name="cordova-plugin-whitelist" version="1"/>
   <plugin name="phonegap-plugin-push" />
+  <preference name="android-build-tool" value="gradle" />
   <allow-intent href="http://*/*"/>
   <allow-intent href="https://*/*"/>
   <allow-intent href="tel:*"/>
