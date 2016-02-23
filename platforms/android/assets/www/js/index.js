@@ -16,59 +16,64 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-var app = {
+var app;
+app = {
     // Application Constructor
-    initialize: function() {
+    initialize: function () {
         this.bindEvents();
     },
     // Bind Event Listeners
     //
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
-    bindEvents: function() {
+    bindEvents: function () {
         document.addEventListener('deviceready', this.onDeviceReady, false);
     },
     // deviceready Event Handler
     //
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
-    onDeviceReady: function() {
-        var push = PushNotification.init({
-            "android": {
-                "senderID": "1234567890"
-            },
-            "ios": {"alert": "true", "badge": "true", "sound": "true"}, 
-            "windows": {} 
-        });
-        
-        push.on('registration', function(data) {
+    onDeviceReady: function () {
+        try {
+            var push = PushNotification.init({
+                "android": {
+                    "senderID": "1096177396053"
+                },
+                "ios": {"alert": "true", "badge": "true", "sound": "true"},
+                "windows": {}
+            });
+        } catch (err) {
+            navigator.notification.alert(err.message);
+        }
+
+        push.on('registration', function (data) {
             console.log("registration event");
             document.getElementById("regId").innerHTML = data.registrationId;
             console.log(JSON.stringify(data));
         });
 
-        push.on('notification', function(data) {
-        	console.log("notification event");
+        push.on('notification', function (data) {
+            console.log("notification event");
             console.log(JSON.stringify(data));
             var cards = document.getElementById("cards");
             var card = '<div class="row">' +
-		  		  '<div class="col s12 m6">' +
-				  '  <div class="card darken-1">' +
-				  '    <div class="card-content black-text">' +
-				  '      <span class="card-title black-text">' + data.title + '</span>' +
-				  '      <p>' + data.message + '</p>' +
-				  '    </div>' +
-				  '  </div>' +
-				  ' </div>' +
-				  '</div>';
+                '<div class="col s12 m6">' +
+                '  <div class="card darken-1">' +
+                '    <div class="card-content black-text">' +
+                '      <span class="card-title black-text">' + data.title + '</span>' +
+                '      <p>' + data.message + '</p>' +
+                '    </div>' +
+                '  </div>' +
+                ' </div>' +
+                '</div>';
             cards.innerHTML += card;
-            
+
             push.finish(function () {
                 console.log('finish successfully called');
             });
         });
 
-        push.on('error', function(e) {
+        push.on('error', function (e) {
             console.log("push error");
         });
     }

@@ -72,7 +72,8 @@
                             "xml": "<service android:exported=\"false\" android:name=\"com.adobe.phonegap.push.RegistrationIntentService\"></service>",
                             "count": 1
                         }
-                    ]
+                    ],
+                    "/*": []
                 }
             }
         }
